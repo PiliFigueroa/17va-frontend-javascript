@@ -134,7 +134,14 @@ const resta = (num1, num2) => {
 // console.log(sumar(10, resta(11, -6)))
 // console.log(sumar(10, miResta))
 
-const num1 = parseInt(prompt("Ingrese el primer numero:", 0))
-const num2 = parseInt(prompt("Ingrese el segundo numero:", 0))
+// const num1 = parseInt(prompt("Ingrese el primer numero:", 0))
+// const num2 = parseInt(prompt("Ingrese el segundo numero:", 0))
 
-document.write(`<h3>La suma es: ${sumar(num1, num2)}</h3>`)
+// document.write(`<h3>La suma es: ${sumar(num1, num2)}</h3>`)
+
+const distance = prompt ("Ingrese distancia de su recorrido:")
+let walkingVelocity = "5"
+let bicicleVelocity = "10"
+let carVelocity = "100"
+alert (`El recorrido en auto tardaría ${distance / carVelocity} horas, en bici ${distance / bicicleVelocity} horas
+y a pie ${distance / walkingVelocity} horas.`)
