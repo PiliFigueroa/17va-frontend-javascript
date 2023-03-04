@@ -1,0 +1,32 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* .accordion-container {
+    width: 50%;
+} */
+
+.accordion {
+    background-color: #bd5aff;
+    color: #171717;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 24px;
+}
+
+.active,
+.accordion:hover {
+    background-color: #a833f7;
+}
+
+.content {
+    display: none;
+    font-size: 18px;
+    padding: 0 18px;
+    overflow: hidden;
+    background-color: #c7c7c7;
+}

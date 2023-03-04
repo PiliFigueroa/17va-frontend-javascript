@@ -1,0 +1,9 @@
+body.modo-oscuro {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  h1.modo-oscuro,
+  h3.modo-oscuro {
+    color: #fff;
+  }

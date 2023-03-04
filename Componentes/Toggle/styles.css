@@ -1,0 +1,9 @@
+.light-bulb {
+    width: 140px;
+    height: 200px;
+    background-image: url('./img/off.png');
+}
+
+.on {
+    background-image: url('./img/on.png');
+}
