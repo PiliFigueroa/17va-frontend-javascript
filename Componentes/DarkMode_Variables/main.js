@@ -1,8 +1,10 @@
 const $ = (selector) => document.querySelector(selector)
 
+// getAttribute, setAttribute, removeAttribute
+
 $(".change-theme").addEventListener("click", () => {
     const currentTheme = $("body").getAttribute("data-theme")
-    if (currentTheme === "light-theme") {
+    if (currentTheme) {
         $("#lightbulb-off").classList.remove("hidden")
         $("#lightbulb-on").classList.add("hidden")
         $("body").removeAttribute("data-theme", "light-theme")
