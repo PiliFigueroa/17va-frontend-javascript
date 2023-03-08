@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT' crossorigin='anonymous'>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css' integrity='sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==' crossorigin='anonymous' referrerpolicy='no-referrer' />
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row mt-2">
+            <div class="col">
+                <form action="" class="form">
+                    <div class="form-group">
+                        <label for="username" class="mb-2">Username</label>
+                        <input type="text" name="username" id="username" class="form-control">
+                        <p class="text-danger d-none username-error"><i class="fa-sharp fa-solid fa-circle-exclamation me-2"></i>Please complete this field</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="mb-2">Email</label>
+                        <input type="email" name="email" id="email" class="form-control">
+                        <p class="text-danger d-none email-error"><i class="fa-sharp fa-solid fa-circle-exclamation me-2"></i>Email is not valid</p>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="password" class="mb-2">Password</label>
+                            <input type="password" name="password" id="password" class="form-control">
+                        </div>
+                        <div class="form-group col">
+                            <label for="password" class="mb-2">Confirm Password</label>
+                            <input type="password" name="password" id="passwordConfirm" class="form-control">
+                        </div>
+                        <p class="text-danger d-none password-error"><i class="fa-sharp fa-solid fa-circle-exclamation me-2"></i>Passwords doesn't match</p>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col">
+                            <div class="form-check">
+                                <input type="checkbox" name="terms" id="terms" class="form-check-input">
+                                <label for="terms">Accept terms and conditions</label>
+                                <p class="text-danger d-none terms-error"><i class="fa-sharp fa-solid fa-circle-exclamation me-2"></i>Please accept terms and conditions</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col">
+                            <input type="submit" value="Register" class="btn btn-success">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
