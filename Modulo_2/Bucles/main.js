@@ -120,18 +120,35 @@ contiene(54, [5, 7, 99, 3, 4, 54, 2, 12]) // true
 contiene(103, [5, 7, 99, 3, 4, 54, 2, 12]) // false
 */
 
-const contiene = (numero, arrayNumeros) => {
-    return arrayNumeros.includes(numero)
-}
+// const contiene = (numero, arrayNumeros) => {
+//     return arrayNumeros.includes(numero)
+// }
 
-const contiene2 = (numero, arrayNumeros) => {
-    for (const num of arrayNumeros) {
-        if (num === numero) {
-            return true
+// const contiene2 = (numero, arrayNumeros) => {
+//     for (const num of arrayNumeros) {
+//         if (num === numero) {
+//             return true
+//         }
+//     }
+//     return false
+// }
+
+// console.log(contiene2(54, [5, 7, 99, 3, 4, 54, 2, 12])) // true
+// console.log(contiene2(103, [5, 7, 99, 3, 4, 54, 2, 12])) // false
+
+/*
+Crear una función obtenerMenor que tome como argumento un array de números numeros y devuelva el menor de ellos. Ejemplo:
+obtenerNumeroMenor([5, 7, 99, 34, 54, 2, 12]) // 2
+*/
+
+const obtenerNumeroMenor = (numeros) => {
+    let numeroMenor = +Infinity
+    for (const num of numeros) {
+        if (num < numeroMenor) {
+            numeroMenor = num
         }
     }
-    return false
+    return numeroMenor
 }
 
-console.log(contiene2(54, [5, 7, 99, 3, 4, 54, 2, 12])) // true
-console.log(contiene2(103, [5, 7, 99, 3, 4, 54, 2, 12])) // false
+console.log(obtenerNumeroMenor([54, 2, 34, 20, 55]))
