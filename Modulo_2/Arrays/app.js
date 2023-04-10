@@ -66,7 +66,20 @@ const randomElement = (array) => {
     return array[index]
 }
 
-console.log(randomElement(greenGrocery))
-console.log(randomElement(greenGrocery))
-console.log(randomElement(greenGrocery))
-console.log(randomElement(greenGrocery))
+// console.log(randomElement(greenGrocery))
+// console.log(randomElement(greenGrocery))
+// console.log(randomElement(greenGrocery))
+// console.log(randomElement(greenGrocery))
+
+const germinar = plantines => {
+    let plantas = plantines.split(/(?:)/u)
+    let hijo = "🌱"
+
+    for (let i = 1; i < plantas.length; i++){
+        if (plantas[i] === hijo) {
+            plantas[i] = plantas[i-1]
+        }
+    }
+    
+    return plantas.join("")
+}
