@@ -141,3 +141,27 @@ const local = {
     { componente: "RAM Quinston Fury", precio: 230 },
   ],
 };
+
+// - Crear una funcion `precioMaquina(componentes)` que recibe un array de componentes y devuelve el precio de la máquina que se puede armar con esos componentes, que es la suma de los precios de cada componente incluido.
+
+// Creo una funcion auxiliar que me devuelva el precio de un unico componente que recibe por parametro
+const precioComponente = (componente) => {
+  for (const articulo of local.precios) {
+    if (componente === articulo.componente) {
+      return articulo.precio
+    }
+  }
+}
+
+console.log(precioComponente("Motherboard ASUS 1500"))
+
+// Hago la funcion del ejercicio reutilizando la funcion auxiliar
+const precioMaquina = (componentes) => {
+  let sumaTotal = 0
+  for (const componente of componentes) {
+    sumaTotal += precioComponente(componente)
+  }
+  return sumaTotal
+}
+
+console.log(precioMaquina(["Monitor GPRS 3000", "Motherboard ASUS 1500"])) // 320
