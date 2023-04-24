@@ -8310,17 +8310,3 @@ const estudiantes = [
       ],
     },
   ];
-
-  /*
-  4. `obtenerPromedioDeEstudiante`, que tome por parámetro une estudiante (que se saca del array estudiantes) y devuelva el promedio total de todas las materias
-  */
-
-  const obtenerPromedioDeEstudiante = (estudiante) => {
-    let notas = 0
-    for (const materia of estudiante.materias) {
-      notas += materia.promedio
-    }
-    return notas / estudiante.materias.length
-  }
-
-  console.log(obtenerPromedioDeEstudiante(estudiantes[0]))
