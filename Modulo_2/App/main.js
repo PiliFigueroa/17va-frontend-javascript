@@ -26,13 +26,47 @@ const renderUsers = (users) => {
                 <td>${age}</td>
                 <td>
                     <button class="btn btn-success" onclick="editUserForm('${id}')"><i class="fa-solid fa-pencil"></i></button>
-                    <button class="btn btn-danger" onclick="deleteUser('${id}')"><i class="fa-solid fa-trash"></i></button>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-modal" onclick="openDeleteModal('${id}', '${fullname}')"><i class="fa-solid fa-trash"></i></button>
                 </td>
             `
         }
     } else {
         showElement(".no-results")
     }
+}
+
+const validateForm = () => {
+    const regEmail = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}')
+    const regAge = new RegExp('/^[0-9]+$/')
+    const fullname = $("#fullname").value.trim()
+    const email = $("#email").value.trim()
+    const age = $("#age").valueAsNumber
+
+    if (fullname == "") {
+        showElement(".fullname-error")
+        $("#fullname").classList.add("border-danger")
+    } else {
+        hideElement(".fullname-error")
+        $("#fullname").classList.remove("border-danger")
+    }
+
+    if (!regEmail.test(email)) {
+        showElement(".email-error")
+        $("#email").classList.add("border-danger")
+    } else {
+        hideElement(".email-error")
+        $("#email").classList.remove("border-danger")
+    }
+
+    if (age < 18 && age !== "") {
+        showElement(".age-error")
+        $("#age").classList.add("border-danger")
+    } else {
+        hideElement(".age-error")
+        $("#age").classList.remove("border-danger")
+    }
+
+    return fullname !== "" && regEmail.test(email) && age >= 18 && age !== ""
 }
 
 const saveUserData = (userId) => {
@@ -54,7 +88,6 @@ const addUser = () => {
 const deleteUser = (id) => {
     const currentUsers = getUsers("users").filter(user => user.id !== id)
     setUsers("users", currentUsers)
-    renderUsers(currentUsers)
 }
 
 const editUser = () => {
@@ -79,6 +112,16 @@ const editUserForm = (id) => {
     $("#age").value = userSelected.age
 }
 
+const openDeleteModal = (id, fullname) => {
+    $("#btn-delete").setAttribute("data-id", id)
+    $(".user-name").innerText = fullname
+    $("#btn-delete").addEventListener("click", () => {
+        const userId = $("#btn-delete").getAttribute("data-id")
+        deleteUser(userId)
+        window.location.reload()
+    })
+}
+
 const initializeApp = () => {
     setUsers("users", allUsers)
     renderUsers(allUsers)
@@ -92,15 +135,26 @@ const initializeApp = () => {
 
     $("#btn-submit").addEventListener("click", (e) => {
         e.preventDefault()
-        addUser()
+        if (validateForm()) {
+            addUser()
+        }
     })
 
     $("#btn-edit").addEventListener("click", (e) => {
         e.preventDefault()
-        editUser()
-        hideElement(".form")
-        showElement(".table")
-        renderUsers(getUsers("users"))
+        if (validateForm()) {
+            editUser()
+            hideElement(".form")
+            showElement(".table")
+            renderUsers(getUsers("users"))
+        }
+    })
+
+    $("#age").addEventListener("input", (e) => {
+        const value = e.target.valueAsNumber
+        if (isNaN(value)) {
+            $("#age").value = ""
+        }
     })
 }
 
