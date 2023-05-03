@@ -3,7 +3,7 @@ const artistas = [
       nombre: "Ochoa Chang",
       solista: true,
       edad: 33,
-      instrumento: "batería",
+      instrumento: "bateria",
       paisNacimiento: "Mayotte",
       ultimoRecital: {
         pais: "Vatican City State (Holy See)",
@@ -73,7 +73,7 @@ const artistas = [
       nombre: "Blevins Hardy",
       solista: true,
       edad: 40,
-      instrumento: "batería",
+      instrumento: "bateria",
       paisNacimiento: "Bulgaria",
       ultimoRecital: {
         pais: "St. Pierre and Miquelon",
@@ -227,7 +227,7 @@ const artistas = [
       nombre: "Elise Walker",
       solista: true,
       edad: 33,
-      instrumento: "batería",
+      instrumento: "bateria",
       paisNacimiento: "Guam",
       ultimoRecital: {
         pais: "Hong Kong",
@@ -613,7 +613,7 @@ const artistas = [
       nombre: "Lina Mccall",
       solista: false,
       edad: 29,
-      instrumento: "batería",
+      instrumento: "bateria",
       paisNacimiento: "Germany",
       ultimoRecital: {
         pais: "Fiji",
@@ -827,7 +827,7 @@ const artistas = [
       nombre: "Desiree Marshall",
       solista: false,
       edad: 32,
-      instrumento: "batería",
+      instrumento: "bateria",
       paisNacimiento: "Syria",
       ultimoRecital: {
         pais: "Djibouti",
@@ -1265,7 +1265,7 @@ const artistas = [
       nombre: "Myrna Murphy",
       solista: true,
       edad: 39,
-      instrumento: "batería",
+      instrumento: "bateria",
       paisNacimiento: "Belgium",
       ultimoRecital: {
         pais: "Ghana",
@@ -1433,7 +1433,7 @@ const artistas = [
       nombre: "Hester Garcia",
       solista: true,
       edad: 39,
-      instrumento: "batería",
+      instrumento: "bateria",
       paisNacimiento: "Mali",
       ultimoRecital: {
         pais: "Reunion",
@@ -1473,7 +1473,7 @@ const artistas = [
       nombre: "Tabitha Haynes",
       solista: true,
       edad: 39,
-      instrumento: "batería",
+      instrumento: "bateria",
       paisNacimiento: "Romania",
       ultimoRecital: {
         pais: "Slovenia",
@@ -1569,7 +1569,7 @@ const artistas = [
       nombre: "Joanne Parks",
       solista: true,
       edad: 40,
-      instrumento: "batería",
+      instrumento: "bateria",
       paisNacimiento: "Gibraltar",
       ultimoRecital: {
         pais: "Czech Republic",
@@ -1909,7 +1909,7 @@ const artistas = [
       nombre: "Dean Whitney",
       solista: true,
       edad: 27,
-      instrumento: "batería",
+      instrumento: "bateria",
       paisNacimiento: "Virgin Islands (US)",
       ultimoRecital: {
         pais: "Seychelles",
@@ -2263,7 +2263,7 @@ const artistas = [
       nombre: "Dillard Hoffman",
       solista: false,
       edad: 27,
-      instrumento: "batería",
+      instrumento: "bateria",
       paisNacimiento: "Pakistan",
       ultimoRecital: {
         pais: "Vanuatu",
@@ -2667,7 +2667,7 @@ const artistas = [
       nombre: "Addie Glass",
       solista: true,
       edad: 24,
-      instrumento: "batería",
+      instrumento: "bateria",
       paisNacimiento: "Nigeria",
       ultimoRecital: {
         pais: "Zambia",
@@ -2925,7 +2925,7 @@ const artistas = [
       nombre: "Bush Armstrong",
       solista: true,
       edad: 32,
-      instrumento: "batería",
+      instrumento: "bateria",
       paisNacimiento: "New Caledonia",
       ultimoRecital: {
         pais: "Iceland",
@@ -3039,7 +3039,7 @@ const artistas = [
       nombre: "Lorie Maldonado",
       solista: false,
       edad: 34,
-      instrumento: "batería",
+      instrumento: "bateria",
       paisNacimiento: "Solomon Islands",
       ultimoRecital: {
         pais: "Macedonia",
@@ -3333,7 +3333,7 @@ const artistas = [
       nombre: "Burton Rich",
       solista: true,
       edad: 27,
-      instrumento: "batería",
+      instrumento: "bateria",
       paisNacimiento: "Northern Mariana Islands",
       ultimoRecital: {
         pais: "Iran",
@@ -3909,7 +3909,7 @@ const artistas = [
       nombre: "Sharp Hensley",
       solista: true,
       edad: 40,
-      instrumento: "batería",
+      instrumento: "bateria",
       paisNacimiento: "United Kingdom",
       ultimoRecital: {
         pais: "Equatorial Guinea",
@@ -3967,7 +3967,7 @@ const artistas = [
       nombre: "Angel Schwartz",
       solista: true,
       edad: 22,
-      instrumento: "batería",
+      instrumento: "bateria",
       paisNacimiento: "Venezuela",
       ultimoRecital: {
         pais: "Marshall Islands",
@@ -4065,7 +4065,7 @@ const artistas = [
       nombre: "Mcclure Snow",
       solista: true,
       edad: 32,
-      instrumento: "batería",
+      instrumento: "bateria",
       paisNacimiento: "Tunisia",
       ultimoRecital: {
         pais: "Botswana",
@@ -4411,7 +4411,7 @@ const artistas = [
       nombre: "Marisa Stanley",
       solista: false,
       edad: 34,
-      instrumento: "batería",
+      instrumento: "bateria",
       paisNacimiento: "Haiti",
       ultimoRecital: {
         pais: "Somalia",
@@ -4591,7 +4591,7 @@ const artistas = [
       nombre: "Robin Carroll",
       solista: true,
       edad: 30,
-      instrumento: "batería",
+      instrumento: "bateria",
       paisNacimiento: "Saint Vincent and The Grenadines",
       ultimoRecital: {
         pais: "US Minor Outlying Islands",
@@ -4714,4 +4714,127 @@ const artistas = [
       genero: "grunge",
     },
   ];
-  
+
+// ## SOLUCIONES
+
+// 1. `artistasSolistas`, que tome por parámetro un array de artistas y devuelva un array con les artistas que sean solistas
+
+const artistasSolistas = (artistas) => artistas.filter(({ solista }) => solista)
+
+// console.log(artistasSolistas(artistas))
+
+// 2. `artistasPorEdad`, que tome un parámetro "edad" y un array de artistas y devuelva un array con les artistas que tengan dicha edad
+
+const artistasPorEdad = (numero, artistas) => artistas.filter(({ edad }) => edad === numero)
+
+// console.log(artistasPorEdad(40, artistas))
+
+// 3. `cantidadDeArtistasPorInstrumento`, que tome por parámetro un array de artistas y devuelva un objeto donde cada "instrumento" es una propiedad y su valor la cantidad de artistas que tocan dicho instrumento
+
+// const artistasPorInstrumento = {
+//   guitarra: 20,
+//   bateria: 15,
+//   voz: 12,
+// }
+
+const cantidadDeArtistasPorInstrumento = (artistas) => {
+  const instrumentosExistentes = []
+  for (const { instrumento } of artistas) {
+    if (!instrumentosExistentes.includes(instrumento)) {
+      instrumentosExistentes.push(instrumento)
+    }
+  }
+  const artistasPorInstrumento = {}
+  for (const key of instrumentosExistentes) {
+    artistasPorInstrumento[key] = artistas.filter((artista) => artista.instrumento === key).length
+  }
+  return artistasPorInstrumento
+}
+
+// console.log(cantidadDeArtistasPorInstrumento(artistas))
+
+// 4. `cantidadDeArtistasPorGenero`, que tome por parámetro un array de artistas y devuelva un objeto donde cada "género" es una propiedad y su valor la cantidad de artistas de dicho género
+
+const cantidadDeArtistasPorGenero = (artistas) => {
+  const generosExistentes = []
+  for (const { genero } of artistas) {
+    // Circuito corto
+    !generosExistentes.includes(genero) && generosExistentes.push(genero)
+  }
+  const artistasPorGenero = {}
+  for (const key of generosExistentes) {
+    artistasPorGenero[key] = artistas.filter((artista) => artista.genero === key).length
+  }
+  return artistasPorGenero
+}
+
+// console.log(cantidadDeArtistasPorGenero(artistas))
+
+// 5. `artistasConMasDiscosQue`, que tome por parámetro "cantidadDeDiscos" y un array de artistas y devuelva un array con les artistas que tiene más de esa cantidad de discos, ordenados de mayor a menor según cantidad de discos
+
+const artistasConMasDiscosQue = (cantidadDeDiscos, artistas) => {
+  const artistasConMasDiscos = artistas.filter((artista) => artista.discos.length > cantidadDeDiscos)
+  return artistasConMasDiscos.toSorted((a, b) => b.discos.length - a.discos.length)
+}
+
+// console.log(artistasConMasDiscosQue(9, artistas))
+
+// 6. `artistaConMasEntradasVendidas`, que tome por parámetro un array de artistas y devuelva el objeto artista que vendió más entradas en su último recital
+
+const artistaConMasEntradasVendidas = (artistas) => {
+  const artistasOrdenadosPorEntradas = artistas.toSorted((a, b) => b.ultimoRecital.entradasVendidas - a.ultimoRecital.entradasVendidas)
+  return artistasOrdenadosPorEntradas[0]
+}
+
+// console.log(artistaConMasEntradasVendidas(artistas))
+
+// 7. `artistaConMayorRecaudacion`, que tome por parámetro un array de artistas y devuelva el objeto artista que más recaudó en su último recital (entradasVendidas \* costoEntradas)
+
+const artistaConMayorRecaudacion = (artistas) => {
+  const arrayModificado = artistas.map(artista => {
+    // Destructuring de una propiedad que tambien es un objeto
+    const { ultimoRecital: { entradasVendidas, costoEntradas } } = artista
+    const recaudacionTotal = entradasVendidas * costoEntradas
+    return {
+      // Con el spread creamos una copia completa del objeto artista del cual estamos iterando, y sumamos la propiedad nueva
+      ...artista,
+      recaudacionTotal
+    }
+  })
+  const arrayOrdenado = arrayModificado.toSorted((a, b) => b.recaudacionTotal - a.recaudacionTotal)
+  return arrayOrdenado[0]
+}
+
+// console.log(artistaConMayorRecaudacion(artistas))
+
+// 8. `artistasConDiscoEnAnio`, que tome por parámetro un parámetro "anio", y devuelva un array con los artistas que tengan al menos un disco publicado en dicho año
+
+const artistasConDiscoEnAnio = (anio) => {
+  return artistas.filter(artista => {
+    for (const disco of artista.discos) {
+      if (disco.anioLanzamiento === anio) {
+        return true
+      }
+    }
+  })
+}
+
+// console.log(artistasConDiscoEnAnio(1993))
+
+// 9. `artistaConMasCopias`, que devuelva el objeto artista que más copias de discos en total vendió
+
+const artistaConMasCopias = (artistas) => {
+  const arrayModificado = artistas.map(artista => {
+    let totalCopias = 0
+    for (const disco of artista.discos) {
+      totalCopias += disco.copiasVendidas
+    }
+    return {
+      ...artista,
+      totalCopias
+    }
+  })
+  return arrayModificado.toSorted((a, b) => b.totalCopias - a.totalCopias)[0]
+}
+
+// console.log(artistaConMasCopias(artistas))

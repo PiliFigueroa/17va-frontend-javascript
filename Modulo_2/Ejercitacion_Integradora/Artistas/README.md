@@ -16,6 +16,6 @@
 
 7. `artistaConMayorRecaudacion`, que tome por parámetro un array de artistas y devuelva el objeto artista que más recaudó en su último recital (entradasVendidas \* costoEntradas)
 
-8. `artistasConDiscoEnAnio`, que tome por parámetro un parámetro "anio", y devuelva true un array con los artistas que tengan publicado al menos un disco en dicho año
+8. `artistasConDiscoEnAnio`, que tome por parámetro un parámetro "anio", y devuelva un array con los artistas que tengan al menos un disco publicado en dicho año
 
 9. `artistaConMasCopias`, que devuelva el objeto artista que más copias de discos en total vendió
