@@ -10,19 +10,41 @@ const cleanContainer = (selector) => $(selector).innerHTML = ""
 const randomId = () => self.crypto.randomUUID()
 
 // LocalStorage Handlers
-const getUsers = (key) => JSON.parse(localStorage.getItem(key))
-const setUsers = (key, array) => localStorage.setItem(key, JSON.stringify(array))
+const getData = (key) => JSON.parse(localStorage.getItem(key))
+const setData = (key, array) => localStorage.setItem(key, JSON.stringify(array))
 
-const allUsers = getUsers("users") || []
+const defaultProfessions = [
+    {
+        id: randomId(),
+        professionName: "Developer"
+    },
+    {
+        id: randomId(),
+        professionName: "Designer"
+    },
+    {
+        id: randomId(),
+        professionName: "Project Manager"
+    },
+    {
+        id: randomId(),
+        professionName: "SCRUM Master"
+    }
+]
+
+const allUsers = getData("users") || []
+const allProfessions = getData("professions") || defaultProfessions
 
 const renderUsers = (users) => {
     cleanContainer("#table")
     if (users.length) {
         hideElement(".no-results")
-        for (const { id, fullname, email, age } of users) {
+        for (const { id, fullname, email, profession, age } of users) {
+            const professionSelected = getData("professions").find(prof => prof.id === profession)
             $("#table").innerHTML += `
                 <td>${fullname}</td>
                 <td>${email}</td>
+                <td>${professionSelected.professionName}</td>
                 <td>${age}</td>
                 <td>
                     <button class="btn btn-success" onclick="editUserForm('${id}')"><i class="fa-solid fa-pencil"></i></button>
@@ -35,9 +57,32 @@ const renderUsers = (users) => {
     }
 }
 
+const renderProfessionOptions = (professions) => {
+    cleanContainer("#professions")
+    for (const profession of professions) { 
+        $("#professions").innerHTML += `
+            <option value="${profession.professionName}" data-id="${profession.id}">${profession.professionName}</option>
+        `
+    }
+}
+
+const renderProfessionsTable = (professions) => {
+    cleanContainer("#table-professions")
+    for (const profession of professions) {
+        $("#table-professions").innerHTML += `
+        <tr>
+            <td>${profession.professionName}</td>
+            <td>
+                <button class="btn btn-success"><i class="fa-solid fa-pencil"></i></button>
+                <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+            </td>
+        </tr>
+        `
+    }
+}
+
 const validateForm = () => {
     const regEmail = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}')
-    const regAge = new RegExp('/^[0-9]+$/')
     const fullname = $("#fullname").value.trim()
     const email = $("#email").value.trim()
     const age = $("#age").valueAsNumber
@@ -70,35 +115,37 @@ const validateForm = () => {
 }
 
 const saveUserData = (userId) => {
+    const professionId = $("#professions").options[$("#professions").selectedIndex].getAttribute("data-id")
     return {
         id: userId ? userId : randomId(),
         fullname: $("#fullname").value,
         email: $("#email").value,
+        profession: professionId,
         age: $("#age").value
     }
 }
 
 const addUser = () => {
-    const currentUsers = getUsers("users")
+    const currentUsers = getData("users")
     const newUser = saveUserData()
     currentUsers.push(newUser)
-    setUsers("users", currentUsers)
+    setData("users", currentUsers)
 }
 
 const deleteUser = (id) => {
-    const currentUsers = getUsers("users").filter(user => user.id !== id)
-    setUsers("users", currentUsers)
+    const currentUsers = getData("users").filter(user => user.id !== id)
+    setData("users", currentUsers)
 }
 
 const editUser = () => {
     const userId = $("#btn-edit").getAttribute("data-id")
-    const editedUsers = getUsers("users").map(user => {
+    const editedUsers = getData("users").map(user => {
         if (user.id === userId) {
             return saveUserData(user.id)
         }
         return user
     })
-    setUsers("users", editedUsers)
+    setData("users", editedUsers)
 }
 
 const editUserForm = (id) => {
@@ -106,7 +153,7 @@ const editUserForm = (id) => {
     hideElement("#btn-submit")
     showElement(".form")
     $("#btn-edit").setAttribute("data-id", id)
-    const userSelected = getUsers("users").find(user => user.id === id)
+    const userSelected = getData("users").find(user => user.id === id)
     $("#fullname").value = userSelected.fullname
     $("#email").value = userSelected.email
     $("#age").value = userSelected.age
@@ -123,14 +170,19 @@ const openDeleteModal = (id, fullname) => {
 }
 
 const initializeApp = () => {
-    setUsers("users", allUsers)
+    setData("users", allUsers)
+    setData("professions", allProfessions)
     renderUsers(allUsers)
+    renderProfessionOptions(allProfessions)
+    renderProfessionsTable(allProfessions)
 
     $("#add-user-btn").addEventListener("click", () => {
         showElement(".form")
         hideElement(".table")
         hideElement("#btn-edit")
         hideElement(".no-results")
+        hideElement(".table-professions")
+        hideElement(".form-profession")
     })
 
     $("#btn-submit").addEventListener("click", (e) => {
@@ -146,7 +198,7 @@ const initializeApp = () => {
             editUser()
             hideElement(".form")
             showElement(".table")
-            renderUsers(getUsers("users"))
+            renderUsers(getData("users"))
         }
     })
 
@@ -155,6 +207,14 @@ const initializeApp = () => {
         if (isNaN(value)) {
             $("#age").value = ""
         }
+    })
+
+    $("#add-profession-btn").addEventListener("click", () => {
+        hideElement(".table")
+        hideElement(".form")
+        hideElement(".no-results")
+        showElement(".form-profession")
+        showElement(".table-professions")
     })
 }
 

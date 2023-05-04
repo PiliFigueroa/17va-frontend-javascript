@@ -20,6 +20,9 @@
                         <a class="nav-link active" aria-current="page" href="index.html">Home</a>
                     </li>
                     <li class="nav-item">
+                        <button class="btn btn-info" id="add-profession-btn">Add Profession</button>
+                    </li>
+                    <li class="nav-item">
                         <button class="btn btn-primary" id="add-user-btn">Add User</button>
                     </li>
                 </ul>
@@ -32,6 +35,7 @@
         <thead>
             <th>Fullname</th>
             <th>Email</th>
+            <th>Profession</th>
             <th>Age</th>
             <th>Action</th>
         </thead>
@@ -78,6 +82,12 @@
             <p class="text-danger d-none email-error"><i class="fa-sharp fa-solid fa-circle-exclamation me-2"></i>Email is not valid</p>
         </div>
         <div class="mb-3">
+            <label for="profession" class="form-label">Profession</label>
+            <select class="form-select" id="professions" aria-label="Default select example">
+                <!-- Here we will render professions from localstorage or the default ones -->
+            </select>
+        </div>
+        <div class="mb-3">
             <label for="age" class="form-label">Age</label>
             <input type="number" class="form-control" name="age" id="age" placeholder="Age">
             <p class="text-danger d-none age-error"><i class="fa-sharp fa-solid fa-circle-exclamation me-2"></i>Your age must be higher than 18 and lower than 65</p>
@@ -87,6 +97,29 @@
             <button class="btn btn-success" id="btn-edit">Edit</button>
         </div>
     </form>
+
+    <div class="container">
+        <!-- Professions form -->
+        <form action="" class="form-profession d-none">
+            <div class="mb-3">
+                <label for="profession" class="form-label">Profession</label>
+                <input type="text" class="form-control" name="profession" id="profession" placeholder="Profession">
+                <p class="text-danger d-none profession-error"><i class="fa-sharp fa-solid fa-circle-exclamation me-2"></i>This field is required</p>
+                <button class="btn btn-primary mt-3" id="btn-submit-profession">Add</button>
+            </div>
+        </form>
+    
+        <!-- Professions table -->
+        <table class="table-professions d-none">
+            <thead>
+                <th>Profession</th>
+                <th>Action</th>
+            </thead>
+            <tbody id="table-professions">
+                <!-- Here we will render the professions from localstorage -->
+            </tbody>
+        </table>
+    </div>
 
     <script src="main.js"></script>
 </body>
