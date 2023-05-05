@@ -30,6 +30,21 @@
         </div>
     </nav>
 
+    <!-- Professions filter -->
+    <div class="container filters">
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="filter-professions" class="form-label">Filter by profession:</label>
+                    <select class="form-select" id="filter-professions" aria-label="Default select example2">
+                        <option value="">All</option>
+                        <!-- Here we will render professions from localstorage or the default ones -->
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Users Table -->
     <table class="table table-striped container">
         <thead>

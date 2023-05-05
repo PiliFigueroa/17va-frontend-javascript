@@ -59,19 +59,22 @@ const renderUsers = (users) => {
 
 const renderProfessionOptions = (professions) => {
     cleanContainer("#professions")
-    for (const profession of professions) { 
+    for (const { professionName, id } of professions) { 
         $("#professions").innerHTML += `
-            <option value="${profession.professionName}" data-id="${profession.id}">${profession.professionName}</option>
+            <option value="${id}">${professionName}</option>
+        `
+        $("#filter-professions").innerHTML += `
+            <option value="${id}">${professionName}</option>
         `
     }
 }
 
 const renderProfessionsTable = (professions) => {
     cleanContainer("#table-professions")
-    for (const profession of professions) {
+    for (const { professionName } of professions) {
         $("#table-professions").innerHTML += `
         <tr>
-            <td>${profession.professionName}</td>
+            <td>${professionName}</td>
             <td>
                 <button class="btn btn-success"><i class="fa-solid fa-pencil"></i></button>
                 <button type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
@@ -115,21 +118,27 @@ const validateForm = () => {
 }
 
 const saveUserData = (userId) => {
-    const professionId = $("#professions").options[$("#professions").selectedIndex].getAttribute("data-id")
     return {
         id: userId ? userId : randomId(),
         fullname: $("#fullname").value,
         email: $("#email").value,
-        profession: professionId,
+        profession: $("#professions").value,
         age: $("#age").value
     }
 }
 
-const addUser = () => {
-    const currentUsers = getData("users")
-    const newUser = saveUserData()
-    currentUsers.push(newUser)
-    setData("users", currentUsers)
+const saveProfessionData = () => {
+    return {
+        id: randomId(),
+        professionName: $("#profession").value
+    }
+}
+
+const sendNewData = (key, callback) => {
+    const currentData = getData(key)
+    const newData = callback()
+    currentData.push(newData)
+    setData(key, currentData)
 }
 
 const deleteUser = (id) => {
@@ -183,12 +192,13 @@ const initializeApp = () => {
         hideElement(".no-results")
         hideElement(".table-professions")
         hideElement(".form-profession")
+        hideElement(".filters")
     })
 
     $("#btn-submit").addEventListener("click", (e) => {
         e.preventDefault()
         if (validateForm()) {
-            addUser()
+            sendNewData("users", saveUserData)()
         }
     })
 
@@ -215,6 +225,26 @@ const initializeApp = () => {
         hideElement(".no-results")
         showElement(".form-profession")
         showElement(".table-professions")
+        hideElement(".filters")
+    })
+
+    $("#btn-submit-profession").addEventListener("click", (e) => {
+        e.preventDefault()
+        sendNewData("professions", saveProfessionData)
+        const currentProfessions = getData("professions")
+        renderProfessionOptions(currentProfessions)
+        renderProfessionsTable(currentProfessions)
+    })
+
+    $("#filter-professions").addEventListener("input", (e) => {
+        const professionId = e.target.value
+        const currentUsers = getData("users")
+        if (!professionId) {
+            renderUsers(currentUsers)
+        } else {
+            const filteredUsers = currentUsers.filter(user => user.profession === professionId)
+            renderUsers(filteredUsers)
+        }
     })
 }
 
