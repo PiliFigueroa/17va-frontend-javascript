@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT' crossorigin='anonymous'>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css' integrity='sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==' crossorigin='anonymous' referrerpolicy='no-referrer' />
+    <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js' integrity='sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8' crossorigin='anonymous'></script>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <title>App Users</title>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+        <div class="container-fluid">
+            <h1 class="navbar-brand">Users Dashboard</h1>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav w-100 d-flex justify-content-between">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-info" id="add-profession-btn">Add Profession</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-primary" id="add-user-btn">Add User</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Professions filter -->
+    <div class="container filters">
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="filter-professions" class="form-label">Filter by profession:</label>
+                    <select class="form-select" id="filter-professions" aria-label="Default select example2">
+                        <option value="">All</option>
+                        <!-- Here we will render professions from localstorage or the default ones -->
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Users Table -->
+    <table class="table table-striped container">
+        <thead>
+            <th>Fullname</th>
+            <th>Email</th>
+            <th>Profession</th>
+            <th>Age</th>
+            <th>Action</th>
+        </thead>
+        <tbody id="table">
+            <!-- Here we will render the users from localstorage -->
+        </tbody>
+    </table>
+
+    <!-- No results box -->
+    <div class="no-results container">
+        <div class="row">
+            <div class="col">
+                <h3>Sorry, no results!</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Delete Window -->
+    <div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete <span class="user-name"></span> user?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" id="btn-delete">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+    <!-- Add user form -->
+    <form action="" class="form container d-none">
+        <div class="mb-3">
+            <label for="fullname" class="form-label">Fullname</label>
+            <input type="text" class="form-control" name="fullname" id="fullname" placeholder="Fullname">
+            <p class="text-danger d-none fullname-error"><i class="fa-sharp fa-solid fa-circle-exclamation me-2"></i>This field is required</p>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+            <p class="text-danger d-none email-error"><i class="fa-sharp fa-solid fa-circle-exclamation me-2"></i>Email is not valid</p>
+        </div>
+        <div class="mb-3">
+            <label for="profession" class="form-label">Profession</label>
+            <select class="form-select" id="professions" aria-label="Default select example">
+                <!-- Here we will render professions from localstorage or the default ones -->
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="age" class="form-label">Age</label>
+            <input type="number" class="form-control" name="age" id="age" placeholder="Age">
+            <p class="text-danger d-none age-error"><i class="fa-sharp fa-solid fa-circle-exclamation me-2"></i>Your age must be higher than 18 and lower than 65</p>
+        </div>
+        <div class="mb-3">
+            <button class="btn btn-primary" id="btn-submit">Submit</button>
+            <button class="btn btn-success" id="btn-edit">Edit</button>
+        </div>
+    </form>
+
+    <div class="container">
+        <!-- Professions form -->
+        <form action="" class="form-profession d-none">
+            <div class="mb-3">
+                <label for="profession" class="form-label">Profession</label>
+                <input type="text" class="form-control" name="profession" id="profession" placeholder="Profession">
+                <p class="text-danger d-none profession-error"><i class="fa-sharp fa-solid fa-circle-exclamation me-2"></i>This field is required</p>
+                <button class="btn btn-primary mt-3" id="btn-submit-profession">Add</button>
+            </div>
+        </form>
+    
+        <!-- Professions table -->
+        <table class="table-professions d-none">
+            <thead>
+                <th>Profession</th>
+                <th>Action</th>
+            </thead>
+            <tbody id="table-professions">
+                <!-- Here we will render the professions from localstorage -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="./js/main.js" type="module"></script>
+</body>
+</html>
