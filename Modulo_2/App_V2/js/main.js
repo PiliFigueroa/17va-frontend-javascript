@@ -1,36 +1,36 @@
 import { $, Utils, Validations, Storage, Render, Data } from "../modules/modules.js"
 
 const initializeApp = () => {
-    setData("users", allUsers)
-    setData("professions", allProfessions)
-    renderUsers(allUsers)
-    renderProfessionOptions(allProfessions)
-    renderProfessionsTable(allProfessions)
+    Storage.setData("users", Data.allUsers)
+    Storage.setData("professions", Data.allProfessions)
+    Render.users(Data.allUsers)
+    Render.professionOptions(Data.allProfessions)
+    Render.professionsTable(Data.allProfessions)
 
     $("#add-user-btn").addEventListener("click", () => {
-        showElement(".form")
-        hideElement(".table")
-        hideElement("#btn-edit")
-        hideElement(".no-results")
-        hideElement(".table-professions")
-        hideElement(".form-profession")
-        hideElement(".filters")
+        Utils.showElement(".form")
+        Utils.hideElement(".table")
+        Utils.hideElement("#btn-edit")
+        Utils.hideElement(".no-results")
+        Utils.hideElement(".table-professions")
+        Utils.hideElement(".form-profession")
+        Utils.hideElement(".filters")
     })
 
     $("#btn-submit").addEventListener("click", (e) => {
         e.preventDefault()
-        if (validateForm()) {
-            sendNewData("users", saveUserData)()
+        if (Validations.validateForm()) {
+            Storage.sendNewData("users", Data.saveUser)
         }
     })
 
     $("#btn-edit").addEventListener("click", (e) => {
         e.preventDefault()
-        if (validateForm()) {
-            editUser()
-            hideElement(".form")
-            showElement(".table")
-            renderUsers(getData("users"))
+        if (Validations.validateForm()) {
+            Storage.editUser()
+            Utils.hideElement(".form")
+            Utils.showElement(".table")
+            Render.users(Storage.getData("users"))
         }
     })
 
@@ -42,30 +42,30 @@ const initializeApp = () => {
     })
 
     $("#add-profession-btn").addEventListener("click", () => {
-        hideElement(".table")
-        hideElement(".form")
-        hideElement(".no-results")
-        showElement(".form-profession")
-        showElement(".table-professions")
-        hideElement(".filters")
+        Utils.hideElement(".table")
+        Utils.hideElement(".form")
+        Utils.hideElement(".no-results")
+        Utils.showElement(".form-profession")
+        Utils.showElement(".table-professions")
+        Utils.hideElement(".filters")
     })
 
     $("#btn-submit-profession").addEventListener("click", (e) => {
         e.preventDefault()
-        sendNewData("professions", saveProfessionData)
-        const currentProfessions = getData("professions")
-        renderProfessionOptions(currentProfessions)
-        renderProfessionsTable(currentProfessions)
+        Storage.sendNewData("professions", Data.saveProfession)
+        const currentProfessions = Storage.getData("professions")
+        Render.professionOptions(currentProfessions)
+        Render.professionsTable(currentProfessions)
     })
 
     $("#filter-professions").addEventListener("input", (e) => {
         const professionId = e.target.value
-        const currentUsers = getData("users")
+        const currentUsers = Storage.getData("users")
         if (!professionId) {
-            renderUsers(currentUsers)
+            Render.users(currentUsers)
         } else {
             const filteredUsers = currentUsers.filter(user => user.profession === professionId)
-            renderUsers(filteredUsers)
+            Render.users(filteredUsers)
         }
     })
 }

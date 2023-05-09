@@ -1,10 +1,63 @@
 export const $ = (selector) => document.querySelector(selector)
+const $$ = (selector) => document.querySelectorAll(selector)
 
 export const Utils = {
     hideElement: (selector) => $(selector).classList.add("d-none"),
     showElement: (selector) => $(selector).classList.remove("d-none"),
     cleanContainer: (selector) => $(selector).innerHTML = "",
-    randomId: () => self.crypto.randomUUID()
+    randomId: () => self.crypto.randomUUID(),
+    openDeleteModal: (id, fullname) => {
+        $("#btn-delete").setAttribute("data-id", id)
+        $(".user-name").innerText = fullname
+        $("#btn-delete").addEventListener("click", () => {
+            const userId = $("#btn-delete").getAttribute("data-id")
+            Storage.deleteUser(userId)
+            window.location.reload()
+        })
+    }
+}
+
+export const Storage = {
+    getData: (key) => JSON.parse(localStorage.getItem(key)),
+    setData: (key, array) => localStorage.setItem(key, JSON.stringify(array)),
+    sendNewData: (key, callback) => {
+        const currentData = Storage.getData(key)
+        const newData = callback()
+        currentData.push(newData)
+        Storage.setData(key, currentData)
+    },
+    deleteUser: (id) => {
+        const currentUsers = Storage.getData("users").filter(user => user.id !== id)
+        Storage.setData("users", currentUsers)
+    },
+    editUser: () => {
+        const userId = $("#btn-edit").getAttribute("data-id")
+        const editedUsers = Storage.getData("users").map(user => {
+            if (user.id === userId) {
+                return Data.saveUser(user.id)
+            }
+            return user
+        })
+        Storage.setData("users", editedUsers)
+    },
+    defaultProfessions: [
+        {
+            id: Utils.randomId(),
+            professionName: "Developer"
+        },
+        {
+            id: Utils.randomId(),
+            professionName: "Designer"
+        },
+        {
+            id: Utils.randomId(),
+            professionName: "Project Manager"
+        },
+        {
+            id: Utils.randomId(),
+            professionName: "SCRUM Master"
+        }
+    ],
 }
 
 export const Validations = {
@@ -15,26 +68,26 @@ export const Validations = {
         const age = $("#age").valueAsNumber
     
         if (fullname == "") {
-            showElement(".fullname-error")
+            Utils.showElement(".fullname-error")
             $("#fullname").classList.add("border-danger")
         } else {
-            hideElement(".fullname-error")
+            Utils.hideElement(".fullname-error")
             $("#fullname").classList.remove("border-danger")
         }
     
         if (!regEmail.test(email)) {
-            showElement(".email-error")
+            Utils.showElement(".email-error")
             $("#email").classList.add("border-danger")
         } else {
-            hideElement(".email-error")
+            Utils.hideElement(".email-error")
             $("#email").classList.remove("border-danger")
         }
     
         if (age < 18 && age !== "") {
-            showElement(".age-error")
+            Utils.showElement(".age-error")
             $("#age").classList.add("border-danger")
         } else {
-            hideElement(".age-error")
+            Utils.hideElement(".age-error")
             $("#age").classList.remove("border-danger")
         }
     
@@ -42,55 +95,48 @@ export const Validations = {
     }
 }
 
-export const Storage = {
-    getData: (key) => JSON.parse(localStorage.getItem(key)),
-    setData: (key, array) => localStorage.setItem(key, JSON.stringify(array)),
-    sendNewData: (key, callback) => {
-        const currentData = getData(key)
-        const newData = callback()
-        currentData.push(newData)
-        setData(key, currentData)
-    },
-    deleteUser: (id) => {
-        const currentUsers = getData("users").filter(user => user.id !== id)
-        setData("users", currentUsers)
-    },
-    editUser: () => {
-        const userId = $("#btn-edit").getAttribute("data-id")
-        const editedUsers = getData("users").map(user => {
-            if (user.id === userId) {
-                return saveUserData(user.id)
-            }
-            return user
-        })
-        setData("users", editedUsers)
-    }
-}
-
 export const Render = {
-    renderUsers: (users) => {
-        cleanContainer("#table")
+    users: (users) => {
+        Utils.cleanContainer("#table")
         if (users.length) {
-            hideElement(".no-results")
+            Utils.hideElement(".no-results")
             for (const { id, fullname, email, profession, age } of users) {
-                const professionSelected = getData("professions").find(prof => prof.id === profession)
+                const professionSelected = Storage.getData("professions").find(prof => prof.id === profession)
                 $("#table").innerHTML += `
                     <td>${fullname}</td>
                     <td>${email}</td>
                     <td>${professionSelected.professionName}</td>
                     <td>${age}</td>
                     <td>
-                        <button class="btn btn-success" onclick="editUserForm('${id}')"><i class="fa-solid fa-pencil"></i></button>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-modal" onclick="openDeleteModal('${id}', '${fullname}')"><i class="fa-solid fa-trash"></i></button>
+                        <button class="btn btn-success edit-user-btn" data-id="${id}"><i class="fa-solid fa-pencil"></i></button>
+                        <button type="button" class="btn btn-danger delete-user-btn" data-bs-toggle="modal" data-bs-target="#delete-modal" data-id="${id}"><i class="fa-solid fa-trash"></i></button>
                     </td>
                 `
             }
+            for (const btnEdit of $$(".edit-user-btn")) {
+                btnEdit.addEventListener("click", () => {
+                    const userId = btnEdit.getAttribute("data-id")
+                    Render.editUserForm(userId)
+                })
+            }
+            // Recorremos el array de botones delete
+            for (const btnDelete of $$(".delete-user-btn")) {
+                // Le damos un evento a cada uno de esos botones
+                btnDelete.addEventListener("click", () => {
+                    // Tomar el data-id del boton
+                    const userId = btnDelete.getAttribute("data-id")
+                    // Va a buscar al usuario del localstorage que coincida con ese id
+                    const selectedUser = Storage.getData("users").find(user => user.id === userId)
+                    // Va a abrir la modal pasandole el id y el nombre del usuario
+                    Utils.openDeleteModal(userId, selectedUser.fullname)
+                })
+            }
         } else {
-            showElement(".no-results")
+            Utils.showElement(".no-results")
         }
     },
-    renderProfessionOptions: (professions) => {
-        cleanContainer("#professions")
+    professionOptions: (professions) => {
+        Utils.cleanContainer("#professions")
         for (const { professionName, id } of professions) { 
             $("#professions").innerHTML += `
                 <option value="${id}">${professionName}</option>
@@ -100,8 +146,8 @@ export const Render = {
             `
         }
     },
-    renderProfessionsTable: (professions) => {
-        cleanContainer("#table-professions")
+    professionsTable: (professions) => {
+        Utils.cleanContainer("#table-professions")
         for (const { professionName } of professions) {
             $("#table-professions").innerHTML += `
             <tr>
@@ -115,60 +161,35 @@ export const Render = {
         }
     },
     editUserForm: (id) => {
-        hideElement(".table")
-        hideElement("#btn-submit")
-        showElement(".form")
+        Utils.hideElement(".table")
+        Utils.hideElement("#btn-submit")
+        Utils.hideElement(".filters")
+        Utils.showElement(".form")
         $("#btn-edit").setAttribute("data-id", id)
-        const userSelected = getData("users").find(user => user.id === id)
+        const userSelected = Storage.getData("users").find(user => user.id === id)
         $("#fullname").value = userSelected.fullname
         $("#email").value = userSelected.email
         $("#age").value = userSelected.age
-    },
-    openDeleteModal: (id, fullname) => {
-        $("#btn-delete").setAttribute("data-id", id)
-        $(".user-name").innerText = fullname
-        $("#btn-delete").addEventListener("click", () => {
-            const userId = $("#btn-delete").getAttribute("data-id")
-            deleteUser(userId)
-            window.location.reload()
-        })
     }
 }
 
 export const Data = {
-    saveUserData: (userId) => {
+    saveUser: (userId) => {
         return {
-            id: userId ? userId : randomId(),
+            id: userId ? userId : Utils.randomId(),
             fullname: $("#fullname").value,
             email: $("#email").value,
             profession: $("#professions").value,
             age: $("#age").value
         }
     },
-    saveProfessionData: () => {
+    saveProfession: () => {
         return {
-            id: randomId(),
+            id: Utils.randomId(),
             professionName: $("#profession").value
         }
     },
-    defaultProfessions: [
-        {
-            id: randomId(),
-            professionName: "Developer"
-        },
-        {
-            id: randomId(),
-            professionName: "Designer"
-        },
-        {
-            id: randomId(),
-            professionName: "Project Manager"
-        },
-        {
-            id: randomId(),
-            professionName: "SCRUM Master"
-        }
-    ],
-    allUsers: getData("users") || [],
-    allProfessions: getData("professions") || defaultProfessions
+    
+    allUsers: Storage.getData("users") || [],
+    allProfessions: Storage.getData("professions") || Storage.defaultProfessions
 }
