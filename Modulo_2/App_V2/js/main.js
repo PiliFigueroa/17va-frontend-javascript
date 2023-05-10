@@ -1,4 +1,4 @@
-import { $, Utils, Validations, Storage, Render, Data } from "../modules/modules.js"
+import { $, Utils, Validations, Storage, Render, Data, Statics } from "../modules/modules.js"
 
 const initializeApp = () => {
     Storage.setData("users", Data.allUsers)
@@ -7,50 +7,50 @@ const initializeApp = () => {
     Render.professionOptions(Data.allProfessions)
     Render.professionsTable(Data.allProfessions)
 
-    $("#add-user-btn").addEventListener("click", () => {
-        Utils.showElement(".form")
-        Utils.hideElement(".table")
-        Utils.hideElement("#btn-edit")
-        Utils.hideElement(".no-results")
-        Utils.hideElement(".table-professions")
-        Utils.hideElement(".form-profession")
-        Utils.hideElement(".filters")
+    $(Statics.menuAddUser).addEventListener("click", () => {
+        Utils.showElement(Statics.formUsers)
+        Utils.hideElement(Statics.tableUsers)
+        Utils.hideElement(Statics.editSubmitBtn)
+        Utils.hideElement(Statics.noResultsMessage)
+        Utils.hideElement(Statics.tableProfessions)
+        Utils.hideElement(Statics.formProfession)
+        Utils.hideElement(Statics.containerFilters)
     })
 
-    $("#btn-submit").addEventListener("click", (e) => {
+    $(Statics.btnSubmitUsers).addEventListener("click", (e) => {
         e.preventDefault()
         if (Validations.validateForm()) {
             Storage.sendNewData("users", Data.saveUser)
         }
     })
 
-    $("#btn-edit").addEventListener("click", (e) => {
+    $(Statics.editSubmitBtn).addEventListener("click", (e) => {
         e.preventDefault()
         if (Validations.validateForm()) {
             Storage.editUser()
-            Utils.hideElement(".form")
-            Utils.showElement(".table")
+            Utils.hideElement(Statics.formUsers)
+            Utils.showElement(Statics.tableUsers)
             Render.users(Storage.getData("users"))
         }
     })
 
-    $("#age").addEventListener("input", (e) => {
+    $(Statics.inputAge).addEventListener("input", (e) => {
         const value = e.target.valueAsNumber
         if (isNaN(value)) {
-            $("#age").value = ""
+            $(Statics.inputAge).value = ""
         }
     })
 
-    $("#add-profession-btn").addEventListener("click", () => {
-        Utils.hideElement(".table")
-        Utils.hideElement(".form")
-        Utils.hideElement(".no-results")
-        Utils.showElement(".form-profession")
-        Utils.showElement(".table-professions")
-        Utils.hideElement(".filters")
+    $(Statics.menuAddProfession).addEventListener("click", () => {
+        Utils.hideElement(Statics.tableUsers)
+        Utils.hideElement(Statics.formUsers)
+        Utils.hideElement(Statics.noResultsMessage)
+        Utils.showElement(Statics.formProfession)
+        Utils.showElement(Statics.tableProfessions)
+        Utils.hideElement(Statics.containerFilters)
     })
 
-    $("#btn-submit-profession").addEventListener("click", (e) => {
+    $(Statics.btnSubmitProfession).addEventListener("click", (e) => {
         e.preventDefault()
         Storage.sendNewData("professions", Data.saveProfession)
         const currentProfessions = Storage.getData("professions")
@@ -58,7 +58,7 @@ const initializeApp = () => {
         Render.professionsTable(currentProfessions)
     })
 
-    $("#filter-professions").addEventListener("input", (e) => {
+    $(Statics.selectFilters).addEventListener("input", (e) => {
         const professionId = e.target.value
         const currentUsers = Storage.getData("users")
         if (!professionId) {

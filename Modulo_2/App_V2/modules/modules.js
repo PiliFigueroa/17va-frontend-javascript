@@ -1,6 +1,22 @@
 export const $ = (selector) => document.querySelector(selector)
 const $$ = (selector) => document.querySelectorAll(selector)
 
+export const Statics = {
+    menuAddUser: "#add-user-btn",
+    menuAddProfession: "#add-profession-btn",
+    formUsers: ".form",
+    formProfession: ".form-profession",
+    tableUsers: ".table",
+    tableProfessions: ".table-professions",
+    editSubmitBtn: "#btn-edit",
+    btnSubmitUsers: "#btn-submit",
+    btnSubmitProfession: "#btn-submit-profession",
+    noResultsMessage: ".no-results",
+    inputAge: "#age",
+    containerFilters: ".filters",
+    selectFilters: "#filter-professions"
+}
+
 export const Utils = {
     hideElement: (selector) => $(selector).classList.add("d-none"),
     showElement: (selector) => $(selector).classList.remove("d-none"),
