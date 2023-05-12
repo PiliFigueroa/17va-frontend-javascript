@@ -8310,3 +8310,31 @@ const estudiantes = [
       ],
     },
   ];
+
+  // promedioPorMateria, que tome por parámetro un array de estudiantes y devuelva un objeto con los nombres de las materias como propiedades y el promedio total de dicha materia entre todes les estudiantes (suma de todos los promedios divido la cantidad de estudiantes)
+
+  const estudiantesPorMateria = (materia, estudiantes) => {
+    let sumaTotal = 0
+    for (const { materias } of estudiantes) {
+      for (const { nombre, promedio } of materias) {
+        if (nombre === materia) {
+          sumaTotal += promedio
+        }
+      }
+    }
+    return sumaTotal / estudiantes.length
+  }
+
+  console.log(estudiantesPorMateria("Herbología", estudiantes))
+
+  const promedioPorMateria = (estudiantes) => {
+    const promedioMaterias = {}
+    for (const { materias } of estudiantes) {
+      for (const { nombre } of materias) {
+        promedioMaterias[nombre] = estudiantesPorMateria(nombre, estudiantes)
+      }
+    }
+    return promedioMaterias
+  }
+
+  console.log(promedioPorMateria(estudiantes))
