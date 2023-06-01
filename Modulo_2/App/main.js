@@ -4,6 +4,7 @@ const $ = (selector) => document.querySelector(selector)
 // Show or hide handlers
 const showElement = (selector) => $(selector).classList.remove("d-none")
 const hideElement = (selector) => $(selector).classList.add("d-none")
+
 const cleanContainer = (selector) => $(selector).innerHTML = ""
 
 // Random id generator
@@ -223,9 +224,9 @@ const initializeApp = () => {
         hideElement(".table")
         hideElement(".form")
         hideElement(".no-results")
+        hideElement(".filters")
         showElement(".form-profession")
         showElement(".table-professions")
-        hideElement(".filters")
     })
 
     $("#btn-submit-profession").addEventListener("click", (e) => {

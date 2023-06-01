@@ -49,17 +49,17 @@ const $ = (selector) => document.querySelector(selector)
 
 const renderProducts = (products) => {
     for (const { image, name, category, description, free_shipping, price } of products) {
-        const isFreeShipping = free_shipping ? "bg-success" : "bg-danger"
-        const isFreeShipping2 = free_shipping ? "+" : "-"
+        const backgroundColor = free_shipping ? "bg-success" : "bg-danger"
+        const operation = free_shipping ? "+" : "-"
         $(".row").innerHTML += `
             <div class="col">
-                <div class="card ${isFreeShipping}" style="width: 18rem;">
+                <div class="card ${backgroundColor}" style="width: 18rem;">
                     <img src="${image}" class="card-img-top" alt="${name}" width="300px">
                     <div class="card-body">
                         <h5 class="card-title">${name}</h5>
                         <p class="card-text">${description}</p>
                         <p class="card-text">${category}</p>
-                        <p class="card-text">$${isFreeShipping2}${price}</p>
+                        <p class="card-text">$${operation}${price}</p>
                         <a href="#" class="btn btn-primary">Ver producto</a>
                     </div>
                 </div>
