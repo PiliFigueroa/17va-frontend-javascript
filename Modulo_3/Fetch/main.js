@@ -16,18 +16,31 @@
 // En el primer then, recibimos la respuesta que es una promesa, y la parseamos
 // En el segundo then, finalmente llega la informacion si la promesa se cumplio, y podemos utilizarla a partir de ahora
 
+// Parametros de busqueda
+// https://rickandmortyapi.com/api/character?page=2
+// https://rickandmortyapi.com/api/character?species=human&status=alive
+// window.location
+
 // then, catch, finally
 
 // Funciones auxiliares
 const $ = (selector) => document.querySelector(selector)
+const $$ = (selector) => document.querySelectorAll(selector)
 const hideElement = (selector) => $(selector).classList.add('d-none')
 const showElement = (selector) => $(selector).classList.remove('d-none')
+const cleanContainer = (selector) => $(selector).innerHTML = ""
+
+let page = 1
+let totalPages = 0
 
 // Peticiones
-const getCharacters = () => {
-    fetch("https://rickandmortyapi.com/api/character")
+const getCharacters = (pageNumber) => {
+    fetch(`https://rickandmortyapi.com/api/character?page=${pageNumber}`)
         .then(response => response.json())
-        .then(data => renderCharacters(data.results))
+        .then(data => {
+            renderCharacters(data.results)
+            totalPages = data.info.pages
+        })
         // .catch(error => console.log(error))
         // .finally(() => console.log("termino mi peticion"))
 }
@@ -40,9 +53,13 @@ const getCharacter = (characterId) => {
 
 // Renders
 const renderCharacters = (characters) => {
+    showElement("#spinner")
     if (characters) {
-        for (const { id, name, status, species, gender, image } of characters) {
-            $("#characters-container").innerHTML += `
+        cleanContainer("#characters-container")
+        setTimeout(() => {
+            hideElement("#spinner")
+            for (const { id, name, status, species, gender, image } of characters) {
+                $("#characters-container").innerHTML += `
                 <div class="card m-2" style="width: 18rem;">
                     <img src="${image}" class="card-img-top" alt="avatar-${name}">
                     <div class="card-body">
@@ -53,8 +70,9 @@ const renderCharacters = (characters) => {
                         <a href="#" class="btn btn-primary" onclick="getCharacter('${id}')">Ver Detalle</a>
                     </div>
                 </div>
-            `
-        }
+                `
+            }
+        }, 2000)
     }
 }
 
@@ -81,4 +99,30 @@ const renderCharacter = ({ gender, image, name, species, status }) => {
 }
 
 // Eventos
-window.addEventListener('load', getCharacters)
+for (const prev of $$(".prev-btn")) {
+    prev.addEventListener("click", () => {
+        if (page > 1) {
+            page -= 1
+            $(".current-page").innerHTML = page
+            $(".current-page2").innerHTML = page
+            getCharacters(page)
+        }
+    })
+}
+
+for (const next of $$(".next-btn")) {
+    next.addEventListener("click", () => {
+        if (page < totalPages) {
+            page += 1
+            $(".current-page").innerHTML = page
+            $(".current-page2").innerHTML = page
+            getCharacters(page)
+        }
+    })
+}
+
+window.addEventListener("load", () => {
+    getCharacters(page)
+    $(".current-page").innerHTML = page
+    $(".current-page2").innerHTML = page
+})

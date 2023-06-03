@@ -9,8 +9,30 @@
 </head>
 <body>
     <div class="container">
-        <div class="row" id="characters-container"></div>
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-danger prev-btn">Prev</button>
+                <span class="current-page"></span>
+                <button class="btn btn-danger next-btn">Next</button>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="spinner-border text-success" role="status" id="spinner">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <div class="row" id="characters-container">
+        </div>
         <div class="row d-none" id="character-detail-container"></div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-danger prev-btn">Prev</button>
+                <span class="current-page2"></span>
+                <button class="btn btn-danger next-btn">Next</button>
+            </div>
+        </div>
     </div>
     <script src="main.js"></script>
 </body>
