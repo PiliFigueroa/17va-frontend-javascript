@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT' crossorigin='anonymous'>
+    <style>
+        .capitalize {
+            text-transform: capitalize;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row d-flex align-items-end">
+            <div class="col">
+                <label for="keyword">Pokemon Name</label>
+                <input type="text" class="form-control" name="" id="keyword">
+            </div>
+            <div class="col">
+                <button class="btn btn-primary" id="search-btn">Search</button>
+            </div>
+        </div>
+        <div class="container" id="pokemon-container"></div>
+    </div>
+    <script src="app/main.js"></script>
+</body>
+</html>

@@ -17,6 +17,7 @@
 // En el segundo then, finalmente llega la informacion si la promesa se cumplio, y podemos utilizarla a partir de ahora
 
 // Parametros de busqueda
+// https://rickandmortyapi.com/api/character?apiKey=jk5hb643bjh46l34534vb535l5
 // https://rickandmortyapi.com/api/character?page=2
 // https://rickandmortyapi.com/api/character?species=human&status=alive
 // window.location
@@ -34,8 +35,8 @@ let page = 1
 let totalPages = 0
 
 // Peticiones
-const getCharacters = (pageNumber) => {
-    fetch(`https://rickandmortyapi.com/api/character?page=${pageNumber}`)
+const getCharacters = (params) => {
+    fetch(`https://rickandmortyapi.com/api/character${params ? `?${params}` : ""}`)
         .then(response => response.json())
         .then(data => {
             renderCharacters(data.results)
@@ -49,6 +50,17 @@ const getCharacter = (characterId) => {
     fetch(`https://rickandmortyapi.com/api/character/${characterId}`)
         .then(response => response.json())
         .then(data => renderCharacter(data))
+}
+
+const getParams = () => {
+    const params = {
+        page: page,
+        name: $("#keywords").value,
+        status: $("#status").value,
+        gender: $("#gender").value
+    }
+    const url = new URLSearchParams(params).toString()
+    return url
 }
 
 // Renders
@@ -104,8 +116,9 @@ for (const prev of $$(".prev-btn")) {
         if (page > 1) {
             page -= 1
             $(".current-page").innerHTML = page
-            $(".current-page2").innerHTML = page
-            getCharacters(page)
+            // $(".current-page2").innerHTML = page
+            const url = getParams()
+            getCharacters(url)
         }
     })
 }
@@ -115,14 +128,27 @@ for (const next of $$(".next-btn")) {
         if (page < totalPages) {
             page += 1
             $(".current-page").innerHTML = page
-            $(".current-page2").innerHTML = page
-            getCharacters(page)
+            // $(".current-page2").innerHTML = page
+            const url = getParams()
+            getCharacters(url)
         }
     })
 }
 
+$("#search-btn").addEventListener("click", (e) => {
+    e.preventDefault()
+    const url = getParams()
+    getCharacters(url)
+})
+
+$("#reset-btn").addEventListener("click", (e) => {
+    e.preventDefault()
+    $(".form").reset()
+    getCharacters()
+})
+
 window.addEventListener("load", () => {
-    getCharacters(page)
+    getCharacters()
     $(".current-page").innerHTML = page
-    $(".current-page2").innerHTML = page
+    // $(".current-page2").innerHTML = page
 })

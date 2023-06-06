@@ -9,13 +9,34 @@
 </head>
 <body>
     <div class="container">
-        <div class="row">
-            <div class="col">
-                <button class="btn btn-danger prev-btn">Prev</button>
-                <span class="current-page"></span>
-                <button class="btn btn-danger next-btn">Next</button>
+        <form action="" class="form row">
+            <div class="col mb-3">
+                <label for="keywords" class="form-label">Keywords</label>
+                <input type="text" class="form-control" id="keywords" />
             </div>
-        </div>
+            <div class="col mb-3">
+                <label for="status" class="form-label">Status</label>
+                <select class="form-select" aria-label="Default select example" id="status">
+                    <option value="">Select an option</option>
+                    <option value="alive">Alive</option>
+                    <option value="dead">Dead</option>
+                    <option value="unknown">Unknown</option>
+                </select>
+            </div>
+            <div class="col mb-3">
+                <label for="gender" class="form-label">Gender</label>
+                <select class="form-select" aria-label="Default select example" id="gender">
+                    <option value="">Select an option</option>
+                    <option value="female">Female</option>
+                    <option value="male">Male</option>
+                    <option value="unknown">Unknown</option>
+                </select>
+            </div>
+            <div class="col mb-3 d-flex align-items-end gap-2">
+                <button class="btn btn-primary" id="search-btn">Search</button>
+                <button class="btn btn-danger" id="reset-btn">Reset</button>
+            </div>
+        </form>
     </div>
     <div class="container">
         <div class="spinner-border text-success" role="status" id="spinner">
@@ -29,7 +50,7 @@
         <div class="row">
             <div class="col">
                 <button class="btn btn-danger prev-btn">Prev</button>
-                <span class="current-page2"></span>
+                <span class="current-page"></span>
                 <button class="btn btn-danger next-btn">Next</button>
             </div>
         </div>
