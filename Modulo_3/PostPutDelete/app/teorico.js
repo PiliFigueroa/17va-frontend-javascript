@@ -9,7 +9,7 @@
 // const user2 = {
 //     name: "TEST PILI EDITADO",
 //     age: 26,
-//     email: "asd@asd.com"
+//     email: null
 // }
 
 // POST => Agregar una informacion nueva a nuestra API
