@@ -1,0 +1,65 @@
+$background-color: blue;
+@use "sass:math";
+
+@function pxToRem($value) {
+    @return math.div($value, 16px) * 1rem;
+}
+
+@mixin flexDisplay($direction, $alignment, $content) {
+    display: flex;
+    flex-direction: $direction;
+    align-items: $alignment;
+    justify-content: $content;
+}
+
+@mixin bodyTheme($theme) {
+    @if $theme == "light" {
+      background-color: $light-bg;
+    } @else {
+      background-color: $dark-bg;
+    }
+  }  
+
+nav {
+    @include flexDisplay(row, center, space-around);
+    background-color: #c2c2c2;
+    padding: 10px;
+    width: 100%;
+    a {
+        text-decoration: none;
+        color: black;
+        font-family: Arial, Helvetica, sans-serif;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+// .container {
+//     display: flex;
+//     flex-direction: row;
+
+//     .caja {
+//         background-color: red;
+//         &:hover {
+//             background-color: green;
+//         }
+//     }
+// }
+
+// .caja {
+//     width: pxToRem(200px);
+//     height: 200px;
+//     background: $background-color;
+//     margin: 20px;
+// }
+
+.size-3 {
+    font-size: 30px;
+}
+
+.parrafo {
+    @extend .size-3;
+    font-family: Arial, Helvetica, sans-serif;
+    color: blue;
+}
