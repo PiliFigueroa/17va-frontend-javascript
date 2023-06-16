@@ -33,6 +33,7 @@
 const jobs = [
   {
     "name": "FrontEnd Developer",
+    "image": "https://someimageaboutthejob.com/job1.jpg"
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus turpis in eu mi bibendum neque. Eu volutpat odio facilisis mauris sit amet massa vitae tortor. Congue nisi vitae suscipit tellus mauris a diam maecenas sed. Sagittis purus sit amet volutpat consequat mauris nunc congue. Sagittis purus sit amet volutpat consequat mauris nunc congue.",
     "location": "Remote",
     "category": "Development",
